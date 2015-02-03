@@ -1,0 +1,126 @@
+﻿<phone:PhoneApplicationPage
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Controls="clr-namespace:Mathematician.Controls"
+    xmlns:FlatButtonControl="clr-namespace:FlatButtonControl"
+    xmlns:gauges="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.DataVisualization"
+    xmlns:telerikCore="clr-namespace:Telerik.Configuration.Assemblies;assembly=Telerik.Windows.Core"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:ec="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
+    x:Class="Mathematician.Game"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True" BackKeyPress="PhoneApplicationPage_BackKeyPress">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+	<Grid x:Name="LayoutRoot" Background="Transparent">
+        
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="25*"/>
+			<ColumnDefinition Width="152*"/>
+			<ColumnDefinition Width="303*"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" MinHeight="45"/>
+			<RowDefinition Height="104*"/>
+			<RowDefinition Height="137*"/>
+		</Grid.RowDefinitions>
+        
+
+		<!--TitlePanel contains the name of the application and page title-->
+		<StackPanel Grid.Row="0" Margin="12,17,0,28" Grid.ColumnSpan="3"/>
+		<Grid x:Name="KeyboardGrid" Grid.ColumnSpan="3" Margin="10,2,10,10" Grid.Row="2">
+			<Button x:Name="Dot" Content="." HorizontalAlignment="Left" Height="78" VerticalAlignment="Bottom" Width="150" Style="{StaticResource CustomButtonStyle}" Click="Dot_Click"/>
+
+			<Button x:Name="Zero" Content="0" HorizontalAlignment="Center" Height="78" Margin="155,0" VerticalAlignment="Bottom" Width="150" Style="{StaticResource CustomButtonStyle}" Click="Zero_Click"/>
+			<Button x:Name="Backspace" Content="" HorizontalAlignment="Right" Height="78" VerticalAlignment="Bottom" Width="150" Style="{StaticResource CustomButtonStyle}" Click="Backspace_Click"/>
+			<Button x:Name="Seven" Content="7" HorizontalAlignment="Left" Height="78" Margin="0,0,0,83" VerticalAlignment="Bottom" Width="150" Style="{StaticResource CustomButtonStyle}" Click="Seven_Click"/>
+			<Button x:Name="Eight" Content="8" HorizontalAlignment="Center" Height="78" Margin="155,0,155,83" VerticalAlignment="Bottom" Width="150" Style="{StaticResource CustomButtonStyle}" Click="Eight_Click"/>
+			<Button x:Name="Nine" Content="9" HorizontalAlignment="Right" Height="78" Margin="0,0,0,83" VerticalAlignment="Bottom" Width="150" Style="{StaticResource CustomButtonStyle}" Click="Nine_Click"/>
+			<Button x:Name="Four" Content="4" HorizontalAlignment="Left" Height="78" Margin="0,0,0,166" VerticalAlignment="Bottom" Width="150" Style="{StaticResource CustomButtonStyle}" Click="Four_Click"/>
+			<Button x:Name="Five" Content="5" HorizontalAlignment="Center" Height="78" Margin="155,0,155,166" VerticalAlignment="Bottom" Width="150" Style="{StaticResource CustomButtonStyle}" Click="Five_Click"/>
+			<Button x:Name="Six" Content="6" HorizontalAlignment="Right" Height="78" Margin="0,0,0,166" VerticalAlignment="Bottom" Width="150" Style="{StaticResource CustomButtonStyle}" Click="Six_Click"/>
+			<Button x:Name="One" HorizontalAlignment="Left" Height="78" Margin="0,0,0,248" VerticalAlignment="Bottom" Width="150" Style="{StaticResource CustomButtonStyle}" Content="1" Click="One_Click"/>
+			<Button x:Name="Two" Content="2" HorizontalAlignment="Center" Height="78" Margin="155,0,155,248" VerticalAlignment="Bottom" Width="150" Style="{StaticResource CustomButtonStyle}" Click="Two_Click"/>
+			<Button x:Name="Three" Content="3" HorizontalAlignment="Right" Height="78" Margin="0,0,0,248" VerticalAlignment="Bottom" Width="150" Style="{StaticResource CustomButtonStyle}" Click="Three_Click"/>
+		</Grid>
+
+        <!--ContentPanel - place additional content here-->
+		<Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" Grid.RowSpan="2" Grid.ColumnSpan="3">
+			<TextBox x:Name="EditBox" 
+				HorizontalAlignment="Left" 
+				Height="72" Margin="0,0,0,346" 
+				TextWrapping="Wrap" 
+				VerticalAlignment="Bottom" 
+				Width="456" 
+				InputScope="Number" 
+				IsReadOnly="True" 
+				Text="0" 
+				TextChanged="EditBox_TextChanged"/>
+			<Grid x:Name="GaugeControl" Width="300" Height="300" Margin="0,0,0,423" HorizontalAlignment="Center" VerticalAlignment="Top">
+
+				<Ellipse x:Name="GaugeBG" Margin="10">
+					<Ellipse.Fill>
+						<SolidColorBrush Color="{StaticResource PhoneAccentColor}"/>
+					</Ellipse.Fill>
+				</Ellipse>
+				<TextBlock x:Name="Equation" TextWrapping="Wrap" Text="36x1024" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48">
+					<TextBlock.Foreground>
+						<SolidColorBrush Color="{StaticResource PhoneContrastBackgroundColor}"/>
+					</TextBlock.Foreground>
+				</TextBlock>
+
+				<gauges:RadialGaugeRange x:Name="Gauge"
+					TickStep="0"
+					LabelStep="0" 
+					MaxAngle="360" 
+					RenderTransformOrigin="0.5,0.5"
+            >
+					<gauges:RadialBarGaugeIndicator x:Name="GaugeTimeIndicator"
+						BarThickness="8"
+						gauges:RadialGaugeRange.MaxAngle="359"
+						gauges:RadialGaugeRange.MinAngle="0"
+						gauges:RadialGaugeRange.IndicatorRadiusScale="0.95" 
+						IsAnimated="True" HorizontalAlignment="Center" VerticalAlignment="Top" AnimationDuration="0:0:1"
+                >
+						<gauges:RadialBarGaugeIndicator.BarBrush>
+							<SolidColorBrush Color="{StaticResource PhoneContrastBackgroundColor}"/>
+						</gauges:RadialBarGaugeIndicator.BarBrush>
+					</gauges:RadialBarGaugeIndicator>
+				</gauges:RadialGaugeRange>
+			</Grid>
+            
+			<TextBlock x:Name="ptsChangeLabel" HorizontalAlignment="Right" Margin="364,0,0,0" TextWrapping="Wrap" Text="+25 PTS" VerticalAlignment="Top" Foreground="Lime" Opacity="0">
+				<i:Interaction.Triggers>
+					<i:EventTrigger EventName="FadeInEvent">
+						<ec:ChangePropertyAction x:Name="Fadein" PropertyName="Opacity" Duration="0:0:0.5" Value="1">
+							<ec:ChangePropertyAction.Ease>
+								<QuinticEase EasingMode="EaseIn"/>
+							</ec:ChangePropertyAction.Ease>
+						</ec:ChangePropertyAction>
+					</i:EventTrigger>
+					<i:EventTrigger EventName="FadeOutEvent">
+						<ec:ChangePropertyAction x:Name="FadeOut" PropertyName="Opacity" Duration="0:0:0.5">
+							<ec:ChangePropertyAction.Ease>
+								<QuinticEase EasingMode="EaseOut"/>
+							</ec:ChangePropertyAction.Ease>
+						</ec:ChangePropertyAction>
+					</i:EventTrigger>
+				</i:Interaction.Triggers>
+			</TextBlock>
+
+
+		</Grid>
+		<TextBlock x:Name="timeLeftLabel" HorizontalAlignment="Left" Height="35" Margin="10,10,0,0" TextWrapping="Wrap" Text="Time left:" VerticalAlignment="Top" Width="213" Grid.ColumnSpan="3"/>
+		<TextBlock x:Name="PointsLabel" Grid.Column="2" HorizontalAlignment="Left" Margin="80,10,0,0" TextWrapping="Wrap" TextAlignment="Right" Text="0 PTS" VerticalAlignment="Top" Width="211" Height="35"/>
+	</Grid>
+    
+
+</phone:PhoneApplicationPage>
