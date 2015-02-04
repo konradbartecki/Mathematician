@@ -6,7 +6,7 @@
     <Language code="qps-ploc" />
     <Language code="en" />
   </Languages>
-  <App xmlns="" ProductID="{38637d26-ca4b-4dd1-a474-334222ef9b04}" Title="Mathematician" RuntimeType="Silverlight" Version="1.0.0.1" Genre="apps.normal" Author="Konrad Bartecki" Description="Get your kids used to math!" Publisher="Konrad Bartecki" PublisherID="{a7a31674-a3a1-47b2-a99b-c9c0b8c52831}">
+  <App xmlns="" ProductID="{38637d26-ca4b-4dd1-a474-334222ef9b04}" Title="Mathematician" RuntimeType="Silverlight" Version="1.0.1.0" Genre="apps.normal" Author="Konrad Bartecki" Description="Get your kids used to math!" Publisher="Konrad Bartecki" PublisherID="{a7a31674-a3a1-47b2-a99b-c9c0b8c52831}">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />

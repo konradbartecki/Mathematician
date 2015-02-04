@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Resources;
+using System.Threading;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Navigation;
@@ -111,6 +113,9 @@ namespace Mathematician
         {
             if (phoneApplicationInitialized)
                 return;
+
+            //Thread.CurrentThread.CurrentCulture = new CultureInfo("pl-PL");
+            //Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
 
             // Create the frame but don't set it as RootVisual yet; this allows the splash
             // screen to remain active until the application is ready to render.
